@@ -1,4 +1,4 @@
-Library to decode MJPEG streams.  Sample code showing usage is included with the distribution.  For more information, see the full article at Coding4Fun.
+Library to decode MJPEG streams. Sample code showing usage is included with the distribution. For more information, see the full article at Coding4Fun.
 
 * [Coding4Fun Article](http://channel9.msdn.com/coding4fun/articles/MJPEG-Decoder)
 
@@ -19,19 +19,20 @@ There are several assemblies in this package.  Select the one that matches the p
 See the full article at Coding4Fun:
 http://channel9.msdn.com/coding4fun/articles/MJPEG-Decoder
 
-
 Changelog
 ---------
 v1.2.2
-	- Update .NET target framework to 4.7.2
-	- Fix issue where images won't stream if the JPEG header is not present in the first 1024 bytes
+  - Update .NET target framework to 4.7.2
+  - Fix issue where images won't stream if the JPEG header is not present in the first 1024 bytes
+
 v1.2.1
-	- WinRT fix so response streams are properly disposed
-	- The remaining assemblies remain at v1.2
+  - WinRT fix so response streams are properly disposed
+  - The remaining assemblies remain at v1.2
 
 v1.2
-	- WinRT support
-	- Error event handler
-	- Note that the WP7 and XNA assemblies are deprecated, remain at v1.1, and do not contain the Error handler event
+  - WinRT support
+  - Error event handler
+  - Note that the WP7 and XNA assemblies are deprecated, remain at v1.1, and do not contain the Error handler event
+
 v1.1
-	- Credentials can be passed to ParseStream (thanks to patricker for the suggestion)
+  - Credentials can be passed to ParseStream (thanks to patricker for the suggestion)
