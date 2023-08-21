@@ -187,6 +187,11 @@ namespace MjpegProcessor
 							size += buff.Length;
 						}
 					}
+					else
+					{
+						// move to next chunk if JPEG header not found
+						buff = br.ReadBytes(ChunkSize);
+					}
 				}
 #if WINRT
 				resp.Dispose();
