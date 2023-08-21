@@ -4,7 +4,7 @@ Library to decode MJPEG streams.  Sample code showing usage is included with the
 
 --
 
-**MJPEG Decoder v1.2.1**
+**MJPEG Decoder v1.2.2**
 by [Brian Peek](http://www.brianpeek.com/)
 
 There are several assemblies in this package.  Select the one that matches the project type you're building:
@@ -22,6 +22,9 @@ http://channel9.msdn.com/coding4fun/articles/MJPEG-Decoder
 
 Changelog
 ---------
+v1.2.2
+	- Update .NET target framework to 4.7.2
+	- Fix issue where images won't stream if the JPEG header is not present in the first 1024 bytes
 v1.2.1
 	- WinRT fix so response streams are properly disposed
 	- The remaining assemblies remain at v1.2
