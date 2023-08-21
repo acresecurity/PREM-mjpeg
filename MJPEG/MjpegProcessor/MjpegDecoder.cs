@@ -94,7 +94,7 @@ namespace MjpegProcessor
 			HttpWebRequest.RegisterPrefix("http://", WebRequestCreator.ClientHttp);
 #endif
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-			if(!string.IsNullOrEmpty(username) || !string.IsNullOrEmpty(password))
+			if (!string.IsNullOrEmpty(username) || !string.IsNullOrEmpty(password))
 				request.Credentials = new NetworkCredential(username, password);
 
 #if SILVERLIGHT
@@ -132,7 +132,7 @@ namespace MjpegProcessor
 
 				// find our magic boundary value
 				string contentType = resp.Headers["Content-Type"];
-				if(!string.IsNullOrEmpty(contentType) && !contentType.Contains("="))
+				if (!string.IsNullOrEmpty(contentType) && !contentType.Contains("="))
 					throw new Exception("Invalid content-type header.  The camera is likely not returning a proper MJPEG stream.");
 				string boundary = resp.Headers["Content-Type"].Split('=')[1].Replace("\"", "");
 				byte[] boundaryBytes = Encoding.UTF8.GetBytes(boundary.StartsWith("--") ? boundary : "--" + boundary);
@@ -149,19 +149,19 @@ namespace MjpegProcessor
 					// find the JPEG header
 					int imageStart = buff.Find(JpegHeader);
 
-					if(imageStart != -1)
+					if (imageStart != -1)
 					{
 						// copy the start of the JPEG image to the imageBuffer
 						int size = buff.Length - imageStart;
 						Array.Copy(buff, imageStart, imageBuffer, 0, size);
 
-						while(true)
+						while (true)
 						{
 							buff = br.ReadBytes(ChunkSize);
 
 							// find the boundary text
 							int imageEnd = buff.Find(boundaryBytes);
-							if(imageEnd != -1)
+							if (imageEnd != -1)
 							{
 								// copy the remainder of the JPEG to the imageBuffer
 								Array.Copy(buff, 0, imageBuffer, size, imageEnd);
@@ -194,13 +194,13 @@ namespace MjpegProcessor
 				resp.Close();
 #endif
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 #if WINRT
 				if(Error != null)
 					_dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Error(this, new ErrorEventArgs() { Message = ex.Message, ErrorCode = ex.HResult }));
 #else
-				if(Error != null)
+				if (Error != null)
 					_context.Post(delegate { Error(this, new ErrorEventArgs() { Message = ex.Message }); }, null);
 #endif
 
@@ -233,7 +233,7 @@ namespace MjpegProcessor
 
 #if !SILVERLIGHT && !XNA && !WINRT
 			// no Application.Current == WinForms
-			if(Application.Current != null)
+			if (Application.Current != null)
 			{
 				// get it on the UI thread
 				_context.Post(delegate
@@ -245,7 +245,7 @@ namespace MjpegProcessor
 					BitmapImage.EndInit();
 
 					// tell whoever's listening that we have a frame to draw
-					if(FrameReady != null)
+					if (FrameReady != null)
 						FrameReady(this, new FrameReadyEventArgs { FrameBuffer = CurrentFrame, BitmapImage = BitmapImage });
 				}, null);
 			}
@@ -257,7 +257,7 @@ namespace MjpegProcessor
 					Bitmap = new Bitmap(new MemoryStream(frame));
 
 					// tell whoever's listening that we have a frame to draw
-					if(FrameReady != null)
+					if (FrameReady != null)
 						FrameReady(this, new FrameReadyEventArgs { FrameBuffer = CurrentFrame, Bitmap = Bitmap });
 				}, null);
 			}
@@ -280,27 +280,27 @@ namespace MjpegProcessor
 		public static int Find(this byte[] buff, byte[] search)
 		{
 			// enumerate the buffer but don't overstep the bounds
-			for(int start = 0; start < buff.Length - search.Length; start++)
+			for (int start = 0; start < buff.Length - search.Length; start++)
 			{
 				// we found the first character
-				if(buff[start] == search[0])
+				if (buff[start] == search[0])
 				{
 					int next;
 
 					// traverse the rest of the bytes
-					for(next = 1; next < search.Length; next++)
+					for (next = 1; next < search.Length; next++)
 					{
 						// if we don't match, bail
-						if(buff[start+next] != search[next])
+						if (buff[start + next] != search[next])
 							break;
 					}
 
-					if(next == search.Length)
+					if (next == search.Length)
 						return start;
 				}
 			}
 			// not found
-			return -1;	
+			return -1;
 		}
 	}
 
